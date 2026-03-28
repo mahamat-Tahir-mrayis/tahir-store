@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahir Store | Édition Ultime</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root {
+    --bg: #050505;
+    --glass: rgba(255,255,255,0.03);
+    --cyan: #00f0ff;
+    --purple: #bc13fe;
+    --text: #e0e0e0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    background-image: radial-gradient(circle at 20% 50%, rgba(188,19,254,0.1), transparent 40%),
+                      radial-gradient(circle at 80% 30%, rgba(0,240,255,0.1), transparent 40%);
+}
+h1, h2, button { font-family: 'Orbitron', sans-serif; }
+
+/* Header & Nav */
+header { text-align: center; padding: 40px 15px 20px; }
+header h1 {
+    font-size: 2.8rem;
+    background: linear-gradient(45deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+nav button {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+nav button:hover, nav button.active-btn {
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 10px rgba(0,240,255,0.3);
+}
+
+/* Sections */
+.section { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; animation: fade 0.4s; }
+.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 50px;
+}
+.hero h2 { font-size: 2.5rem; margin-bottom: 15px; }
+.btn {
+    display: inline-block;
+    background: transparent;
+    color: var(--cyan);
+    padding: 12px 35px;
+    border: 1px solid var(--cyan);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+
+/* Features */
+.features { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 40px; }
+.feature {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    width: 260px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+.feature:hover { transform: translateY(-5px); border-color: var(--purple); }
+.feature i { font-size: 2.5rem; color: var(--cyan); margin-bottom: 15px; }
+
+/* Produits */
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+.card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+.card:hover { transform: translateY(-8px); border-color: var(--cyan); box-shadow: 0 10px 25px rgba(0,240,255,0.2); }
+.card img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer; }
+.card h3 { margin: 15px 0 8px; }
+.price { color: var(--cyan); font-size: 1.5rem; font-weight: bold; margin: 10px 0; }
+.buy {
+    background: linear-gradient(45deg, var(--purple), var(--cyan));
+    border: none;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.buy:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--purple); }
+
+/* Profil */
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: var(--glass);
+    padding: 40px;
+    border-radius: 25px;
+}
+.profile img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 3px solid var(--purple); }
+.profile-info h3 { font-size: 1.8rem; margin-bottom: 10px; }
+.github-link { color: var(--cyan); text-decoration: none; display: inline-block; margin-top: 15px; }
+
+/* Panier Flottant */
+.cart-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,240,255,0.4);
+    transition: 0.3s;
+}
+.cart-icon:hover { transform: scale(1.1); }
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff3366;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Modal Panier */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(15px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #0a0a0a;
+    border: 1px solid var(--cyan);
+    border-radius: 25px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 25px;
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #aaa;
+}
+.close-modal:hover { color: #ff3366; }
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    gap: 10px;
+}
+.cart-item-quantity button {
+    background: var(--glass);
+    border: 1px solid var(--cyan);
+    color: white;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+.cart-total {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--cyan);
+    text-align: right;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.btn-cart {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+}
+.btn-checkout { background: linear-gradient(45deg, var(--cyan), var(--purple)); color: black; }
+.btn-clear { background: #ff3366; color: white; }
+
+/* Contact */
+.contact form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--glass);
+    padding: 35px;
+    border-radius: 25px;
+}
+.contact input, .contact textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+}
+.contact input:focus, .contact textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0,240,255,0.3);
+}
+.contact-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+.contact-buttons button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    transition: 0.3s;
+}
+.contact-buttons button:first-child { background: #25D366; color: white; }
+.contact-buttons button:first-child:hover { transform: scale(1.05); box-shadow: 0 0 15px #25D366; }
+.contact-buttons button:last-child { background: linear-gradient(45deg, var(--cyan), var(--purple)); color: white; }
+.contact-buttons button:last-child:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--cyan); }
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    background: var(--cyan);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    z-index: 2000;
+    animation: slide 0.3s;
+}
+@keyframes slide { from { transform: translateX(300px); } to { transform: translateX(0); } }
+
+footer { text-align: center; padding: 30px; color: #666; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+@media(max-width: 768px){ nav button { padding: 6px 15px; font-size: 0.8rem; } .hero h2 { font-size: 1.8rem; } }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1><i class="fas fa-microchip"></i> Tahir Store</h1>
+    <p>Matériel informatique & électronique Next-Gen</p>
+</header>
+
+<nav>
+    <button class="active-btn" onclick="showSection('accueil', this)">Accueil</button>
+    <button onclick="showSection('profil', this)">Profil</button>
+    <button onclick="showSection('produits', this)">Produits</button>
+    <button onclick="showSection('contact', this)">Contact</button>
+</nav>
+
+<div class="cart-icon" onclick="openCart()">
+    <i class="fas fa-shopping-cart" style="font-size: 1.5rem;"></i>
+    <span class="cart-count" id="cartCount">0</span>
+</div>
+
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeCart()">&times;</span>
+        <h2 style="color: var(--cyan);"><i class="fas fa-shopping-bag"></i> Mon Panier</h2>
+        <div id="cartItems"></div>
+        <div id="cartTotal" class="cart-total">Total: 0 FCFA</div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+            <button class="btn-cart btn-clear" onclick="clearCart()">Vider</button>
+            <button class="btn-cart btn-checkout" onclick="checkout()">Commander</button>
+        </div>
+    </div>
+</div>
+
+<section id="accueil" class="section active">
+    <div class="hero">
+        <h2>Bienvenue dans chez TAHIR STORE</h2>
+        <p>Votre partenaire ultime en technologie moderne</p>
+        <button class="btn" onclick="showSection('produits', document.querySelectorAll('nav button')[2])">voir nos produits</button>
+    </div>
+    <div class="features">
+        <div class="feature"><i class="fas fa-tachometer-alt"></i><h3>Haute Performance</h3><p>Composants premium</p></div>
+        <div class="feature"><i class="fas fa-shipping-fast"></i><h3>Livraison Express</h3><p>24h-48h chrono</p></div>
+        <div class="feature"><i class="fas fa-shield-alt"></i><h3>Garantie Premium</h3><p>2 ans de garantie</p></div>
+    </div>
+</section>
+
+<section id="profil" class="section">
+    <div class="profile">
+        <img src="image/profil.jpeg" onerror="this.src='https://via.placeholder.com/180/222/00f0ff?text=Tahir'">
+        <div class="profile-info">
+            <h3>Mahamat Tahir <i class="fas fa-certificate" style="color: #ffd700;"></i></h3>
+            <p>Passionné par les réseaux informatiques, les architectures de demain et le business digital.</p>
+            <a href="https://github.com/mahamat-Tahir-mrayis" target="_blank" class="github-link"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </div>
+</section>
+
+<section id="produits" class="section">
+    <h2 style="text-align:center;">Catalogue Premium</h2>
+    <div class="products" id="productsList"></div>
+</section>
+
+<section id="contact" class="section contact">
+    <h2 style="text-align:center; margin-bottom: 20px;">Contactez-nous</h2>
+    <form id="contactForm">
+        <input type="text" id="nom" placeholder="Votre nom complet" required>
+        <input type="email" id="email" placeholder="Votre adresse email" required>
+        <input type="tel" id="telephone" placeholder="Votre numéro de téléphone (optionnel)">
+        <textarea id="message" rows="4" placeholder="Votre message détaillé..." required></textarea>
+        <div class="contact-buttons">
+            <button type="button" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+            <button type="button" onclick="sendEmailMessage()"><i class="fas fa-paper-plane"></i> Envoyer</button>
+        </div>
+    </form>
+</section>
+
+<footer>
+    <p>TAHIR STORE | © 2026 | <a href="https://github.com/mahamat-Tahir-mrayis" style="color: var(--cyan);">GitHub</a></p>
+</footer>
+
+<div id="popup" class="popup" onclick="closePopup()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:3000;">
+    <img id="popupImg" style="max-width:90%; max-height:90%; border-radius:15px;">
+</div>
+
+<script>
+// Produits
+const produits = [
+    { id: 1, nom: "iPhone 16", prix: 500000, image: "image/image11.jpeg" },
+    { id: 2, nom: "Samsung Galaxy", prix: 100000, image: "image/images3.jpeg" },
+    { id: 3, nom: "Nokia Classique", prix: 10000, image: "image/images4.jpeg" },
+    { id: 4, nom: "Tecno Spark", prix: 90000, image: "image/image5.jpeg" },
+    { id: 5, nom: "Caméra Pro", prix: 95000, image: "image/image6.jpeg" },
+    { id: 6, nom: "Smart TV 4K", prix: 200000, image: "image/image9.jpeg" },
+    { id: 7, nom: "MacBook M1", prix: 600000, image: "image/image1.jpeg" },
+    { id: 8, nom: "Setup Complet", prix: 700000, image: "image/image2.jpeg" }
+];
+
+let panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+// Sauvegarde et mise à jour
+function savePanier() {
+    localStorage.setItem('panier', JSON.stringify(panier));
+    document.getElementById('cartCount').innerText = panier.reduce((s, i) => s + i.qte, 0);
+}
+
+// Ajouter au panier
+function ajouterPanier(id) {
+    const produit = produits.find(p => p.id === id);
+    const existant = panier.find(p => p.id === id);
+    if (existant) existant.qte++;
+    else panier.push({ ...produit, qte: 1 });
+    savePanier();
+    afficherToast(`${produit.nom} ajouté au panier !`);
+    if (document.getElementById('cartModal').style.display === 'flex') afficherPanier();
+}
+
+// Afficher panier dans modal
+function afficherPanier() {
+    const container = document.getElementById('cartItems');
+    if (!panier.length) {
+        container.innerHTML = '<p style="text-align:center;">🛒 Votre panier est vide</p>';
+        document.getElementById('cartTotal').innerHTML = 'Total: 0 FCFA';
+        return;
+    }
+    let html = '', total = 0;
+    panier.forEach(item => {
+        const stotal = item.prix * item.qte;
+        total += stotal;
+        html += `
+            <div class="cart-item">
+                <div><strong>${item.nom}</strong><br><span style="color: var(--cyan);">${item.prix.toLocaleString()} FCFA</span></div>
+                <div class="cart-item-quantity">
+                    <button onclick="modifierQte(${item.id}, ${item.qte - 1})">-</button>
+                    <span style="min-width:30px; display:inline-block; text-align:center;">${item.qte}</span>
+                    <button onclick="modifierQte(${item.id}, ${item.qte + 1})">+</button>
+                </div>
+                <div><span style="color: #ffd700;">${stotal.toLocaleString()} FCFA</span></div>
+                <button onclick="supprimerProduit(${item.id})" style="background:none; border:none; color:#ff3366; cursor:pointer; font-size:1.2rem;">✖</button>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+    document.getElementById('cartTotal').innerHTML = `Total: <span style="color: #ffd700;">${total.toLocaleString()} FCFA</span>`;
+}
+
+function modifierQte(id, nouvelleQte) {
+    if (nouvelleQte <= 0) return supprimerProduit(id);
+    const item = panier.find(p => p.id === id);
+    if (item) item.qte = nouvelleQte;
+    savePanier();
+    afficherPanier();
+}
+
+function supprimerProduit(id) {
+    panier = panier.filter(p => p.id !== id);
+    savePanier();
+    afficherPanier();
+    if (!panier.length) closeCart();
+}
+
+function clearCart() {
+    panier = [];
+    savePanier();
+    afficherPanier();
+    afficherToast('Panier vidé avec succès');
+}
+
+function openCart() {
+    afficherPanier();
+    document.getElementById('cartModal').style.display = 'flex';
+}
+function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
+
+function checkout() {
+    if (!panier.length) return afficherToast('🛒 Votre panier est vide');
+    let msg = "🛍️ *MA COMMANDE TAHIR STORE*%0A%0A";
+    let total = 0;
+    panier.forEach(p => {
+        msg += `📱 ${p.nom} x${p.qte} = ${(p.prix * p.qte).toLocaleString()} FCFA%0A`;
+        total += p.prix * p.qte;
+    });
+    msg += `%0A💰 *Total: ${total.toLocaleString()} FCFA*%0A%0A📦 Prêt à finaliser ma commande.`;
+    window.open(`https://wa.me/237686008086?text=${msg}`, '_blank');
+}
+
+function afficherToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Navigation
+function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-btn'));
+    if (btn) btn.classList.add('active-btn');
+}
+
+// ENVOI EMAIL AVEC SERVICE SMTP (Formulaire fonctionnel)
+function sendEmailMessage() {
+    const nom = document.getElementById('nom').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    if (!nom) return afficherToast('❌ Veuillez entrer votre nom');
+    if (!email) return afficherToast('❌ Veuillez entrer votre email');
+    if (!message) return afficherToast('❌ Veuillez entrer votre message');
+    
+    // Validation email simple
+    const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+    if (!emailRegex.test(email)) return afficherToast('❌ Email invalide');
+    
+    // Construction du message pour l'email
+    const subject = encodeURIComponent(`Contact Tahir Store - ${nom}`);
+    const body = encodeURIComponent(
+        `📧 NOUVEAU MESSAGE DEPUIS LE SITE WEB\n\n` +
+        `👤 Nom: ${nom}\n` +
+        `📧 Email: ${email}\n` +
+        `📞 Téléphone: ${telephone || 'Non renseigné'}\n\n` +
+        `💬 MESSAGE:\n${message}\n\n` +
+        `---\nEnvoyé depuis Tahir Store\nDate: ${new Date().toLocaleString('fr-FR')}`
+    );
+    
+    // Ouverture du client email avec les données pré-remplies
+    window.location.href = `mailto:mahamattahirissa90@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Message de confirmation
+    afficherToast('📧 Ouverture de votre messagerie...');
+    
+    // Réinitialisation du formulaire (optionnel)
+    setTimeout(() => {
+        document.getElementById('contactForm').reset();
+    }, 1000);
+}
+
+// WhatsApp avec message formaté
+function sendWhatsApp() {
+    const nom = document.getElementById('nom').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    if (!nom) return afficherToast('❌ Veuillez entrer votre nom');
+    if (!message) return afficherToast('❌ Veuillez entrer votre message');
+    
+    let text = `*Nouveau message Tahir Store*%0A%0A`;
+    text += `👤 Nom: ${nom}%0A`;
+    text += `📧 Email: ${email || 'Non renseigné'}%0A`;
+    if (telephone) text += `📞 Téléphone: ${telephone}%0A`;
+    text += `%0A💬 Message:%0A${message}%0A%0A`;
+    text += `📅 ${new Date().toLocaleString('fr-FR')}`;
+    
+    window.open(`https://wa.me/237686008086?text=${text}`, '_blank');
+}
+
+// Popup image
+function openImage(src) {
+    document.getElementById('popupImg').src = src;
+    document.getElementById('popup').style.display = 'flex';
+}
+function closePopup() { document.getElementById('popup').style.display = 'none'; }
+
+// Affichage produits
+function afficherProduits() {
+    const container = document.getElementById('productsList');
+    container.innerHTML = produits.map(p => `
+        <div class="card">
+            <img src="${p.image}" onclick="openImage(this.src)" onerror="this.src='https://via.placeholder.com/300/222/00f0ff?text=${p.nom}'">
+            <h3>${p.nom}</h3>
+            <div class="price">${p.prix.toLocaleString()} FCFA</div>
+            <button class="buy" onclick="ajouterPanier(${p.id})"><i class="fas fa-cart-plus"></i> Acquérir</button>
+        </div>
+    `).join('');
+}
+
+// Fermer modal au clic externe
+window.onclick = e => { if (e.target === document.getElementById('cartModal')) closeCart(); };
+
+// Initialisation
+afficherProduits();
+savePanier();
+</script>
+
+</body>
+</html>
